@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-
+import Privacy from "./Privacy";
+import About from "./About";
+import Terms from "./Terms";
+import Disclaimer from "./Disclaimer";
+import Contact from "./Contact";
 const presets = {
   ssc: { kb: 50, width: 200, height: 230, label: "SSC", sub: "Photo" },
   railway: { kb: 50, width: 200, height: 230, label: "Railway", sub: "RRB" },
@@ -9,10 +13,26 @@ const presets = {
 };
 
 function App() {
+  if (window.location.pathname === "/formfit-tools/privacy") {
+    return <Privacy />;
+  }
+  if (window.location.pathname === "/formfit-tools/about") {
+    return <About />;
+  }
+if (window.location.pathname === "/formfit-tools/terms") {
+  return <Terms />;
+}
+if (window.location.pathname === "/formfit-tools/disclaimer") {
+  return <Disclaimer />;
+}
+if (window.location.pathname === "/formfit-tools/contact") {
+  return <Contact />;
+}
   const inputRef = useRef(null);
   const [mode, setMode] = useState("photo");
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState("");
+  
   const [result, setResult] = useState("");
   const [resultInfo, setResultInfo] = useState(null);
   const [kb, setKb] = useState(50);
@@ -142,7 +162,7 @@ function App() {
       <main>
         <section className="hero container">
           <div className="eyebrow">⚡ FAST • FREE • PRIVATE</div>
-          <h1>Make Your <span>Photo & Signature</span><br className="desktop"/> Form-Ready in Seconds</h1>
+          <h1>Make Your <span>Photo & Signature</span><br className="desktop" /> Form-Ready in Seconds</h1>
           <p>Resize, compress and prepare images for SSC, Railway, Bank, UPSC, NEET and other online application forms.</p>
           <div className="hero-points">
             <span>✓ Exact KB</span><span>✓ Exact Pixels</span><span>✓ No Signup</span><span>✓ Browser Processing</span>
@@ -171,30 +191,30 @@ function App() {
           </div>
 
           <input ref={inputRef} hidden type="file" accept="image/jpeg,image/png,image/webp"
-            onChange={e => selectFile(e.target.files?.[0])}/>
+            onChange={e => selectFile(e.target.files?.[0])} />
 
           <div
             className={`upload ${dragging ? "dragging" : ""} ${file ? "uploaded" : ""}`}
             onClick={() => !file && inputRef.current?.click()}
-            onDragOver={e => {e.preventDefault(); setDragging(true)}}
+            onDragOver={e => { e.preventDefault(); setDragging(true) }}
             onDragLeave={() => setDragging(false)}
-            onDrop={e => {e.preventDefault(); setDragging(false); selectFile(e.dataTransfer.files?.[0])}}
+            onDrop={e => { e.preventDefault(); setDragging(false); selectFile(e.dataTransfer.files?.[0]) }}
           >
             {!file ? (
               <div className="empty-upload">
                 <div className="cloud">↑</div>
                 <h3>Drop your image here</h3>
-                <p>or <button onClick={e => {e.stopPropagation(); inputRef.current?.click()}}>browse from your device</button></p>
+                <p>or <button onClick={e => { e.stopPropagation(); inputRef.current?.click() }}>browse from your device</button></p>
                 <span className="formats">JPG • JPEG • PNG • WEBP</span>
               </div>
             ) : (
               <div className="uploaded-row">
-                <div className="preview-box"><img src={preview} alt="Uploaded preview"/><span className="verified">✓</span></div>
+                <div className="preview-box"><img src={preview} alt="Uploaded preview" /><span className="verified">✓</span></div>
                 <div className="upload-details">
                   <span className="success">✓ IMAGE UPLOADED SUCCESSFULLY</span>
                   <h3>{file.name}</h3>
                   <p>{Math.max(1, Math.round(file.size / 1024))} KB <i>•</i> {file.type.split("/")[1].toUpperCase()}</p>
-                  <button className="change" onClick={e => {e.stopPropagation(); inputRef.current?.click()}}>Change Image</button>
+                  <button className="change" onClick={e => { e.stopPropagation(); inputRef.current?.click() }}>Change Image</button>
                 </div>
                 <div className="upload-status"><span>READY</span><b>100%</b></div>
               </div>
@@ -209,12 +229,12 @@ function App() {
           </div>
 
           <div className="settings">
-            <label><span>Target Size</span><div className="input-unit"><input type="number" min="5" value={kb} onChange={e => setKb(e.target.value)}/><b>KB</b></div></label>
-            <label><span>Width</span><div className="input-unit"><input type="number" min="20" value={width} onChange={e => setWidth(e.target.value)}/><b>PX</b></div></label>
-            <label><span>Height</span><div className="input-unit"><input type="number" min="20" value={height} onChange={e => setHeight(e.target.value)}/><b>PX</b></div></label>
+            <label><span>Target Size</span><div className="input-unit"><input type="number" min="5" value={kb} onChange={e => setKb(e.target.value)} /><b>KB</b></div></label>
+            <label><span>Width</span><div className="input-unit"><input type="number" min="20" value={width} onChange={e => setWidth(e.target.value)} /><b>PX</b></div></label>
+            <label><span>Height</span><div className="input-unit"><input type="number" min="20" value={height} onChange={e => setHeight(e.target.value)} /><b>PX</b></div></label>
             <label><span>Format</span><select value={format} onChange={e => setFormat(e.target.value)}><option value="image/jpeg">JPG / JPEG</option><option value="image/png">PNG</option></select></label>
-            <label><span>Quality</span><div className="input-unit"><input type="number" min="10" max="100" value={quality} onChange={e => setQuality(e.target.value)}/><b>%</b></div></label>
-            <label><span>Quick Preset</span><select value={preset} onChange={e => applyPreset(e.target.value)}><option value="">Choose preset</option>{Object.entries(presets).map(([k,p]) => <option key={k} value={k}>{p.label} — {p.kb} KB</option>)}</select></label>
+            <label><span>Quality</span><div className="input-unit"><input type="number" min="10" max="100" value={quality} onChange={e => setQuality(e.target.value)} /><b>%</b></div></label>
+            <label><span>Quick Preset</span><select value={preset} onChange={e => applyPreset(e.target.value)}><option value="">Choose preset</option>{Object.entries(presets).map(([k, p]) => <option key={k} value={k}>{p.label} — {p.kb} KB</option>)}</select></label>
           </div>
 
           <div className="actions">
@@ -224,7 +244,7 @@ function App() {
 
           {result && (
             <div className="result">
-              <div className="result-image"><img src={result} alt="Resized result"/></div>
+              <div className="result-image"><img src={result} alt="Resized result" /></div>
               <div className="result-copy">
                 <span className="ready">✓ READY TO DOWNLOAD</span>
                 <h3>Your resized image is ready!</h3>
@@ -244,7 +264,7 @@ function App() {
             <p>Start with a common requirement and adjust it according to the latest official notification.</p>
           </div>
           <div className="preset-grid">
-            {Object.entries(presets).filter(([k]) => k !== "sign").map(([key,p]) => (
+            {Object.entries(presets).filter(([k]) => k !== "sign").map(([key, p]) => (
               <button className="preset-card" key={key} onClick={() => applyPreset(key)}>
                 <div className="preset-icon">{key === "ssc" ? "📋" : key === "railway" ? "🚆" : key === "bank" ? "🏦" : "🎓"}</div>
                 <div><span>{p.label}</span><h3>{p.sub}</h3><p>{p.kb} KB · {p.width} × {p.height} PX</p></div><b>→</b>
