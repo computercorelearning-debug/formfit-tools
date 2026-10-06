@@ -286,7 +286,13 @@ if (window.location.pathname === "/formfit-tools/contact") {
       <footer>
         <div className="container footer">
           <div><a className="brand footer-brand" href="#"><span className="brand-mark">F</span><span>FormFit <b>Tools</b></span></a><p>Fast image tools for online application forms.</p></div>
-          <div className="footer-links"><a href="#">About</a><a href="#">Contact</a><a href="#">Privacy Policy</a><a href="#">Disclaimer</a></div>
+          <div className="footer-links">
+  <a href="/formfit-tools/about">About</a>
+  <a href="/formfit-tools/contact">Contact</a>
+  <a href="/formfit-tools/privacy">Privacy Policy</a>
+  <a href="/formfit-tools/terms">Terms &amp; Conditions</a>
+  <a href="/formfit-tools/disclaimer">Disclaimer</a>
+</div>
           <div className="copyright">© 2026 FormFit Tools</div>
         </div>
       </footer>
